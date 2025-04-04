@@ -5,6 +5,10 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const navItemVariants = {
+  hover: { scale: 1.05, transition: { duration: 0.2 } },
+};
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -21,7 +25,7 @@ export default function Navbar() {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-gray-900/90 backdrop-blur-md py-2"
+          ? "bg-gray-900/90 backdrop-blur-md py-2 shadow-md"
           : "bg-transparent py-4"
       }`}
     >
@@ -37,30 +41,38 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link
-              href="/marketplace"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Marketplace
-            </Link>
-            <Link
-              href="/creators"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              For Creators
-            </Link>
-            <Link
-              href="/about"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="/get-started"
-              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-medium hover:shadow-lg transition-all"
-            >
-              Get Started
-            </Link>
+            <motion.span whileHover="hover" variants={navItemVariants}>
+              <Link
+                href="/marketplace"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                Marketplace
+              </Link>
+            </motion.span>
+            <motion.span whileHover="hover" variants={navItemVariants}>
+              <Link
+                href="/creators"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                For Creators
+              </Link>
+            </motion.span>
+            <motion.span whileHover="hover" variants={navItemVariants}>
+              <Link
+                href="/about"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                About
+              </Link>
+            </motion.span>
+            <motion.span whileHover="hover" variants={navItemVariants}>
+              <Link
+                href="/get-started"
+                className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-medium hover:shadow-lg transition-all"
+              >
+                Get Started
+              </Link>
+            </motion.span>
           </div>
 
           {/* Mobile Menu Button */}
@@ -97,36 +109,36 @@ export default function Navbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 0, height: 0, y: -10 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -10 }}
               transition={{ duration: 0.3 }}
               className="md:hidden mt-4 space-y-2 overflow-hidden"
             >
               <Link
                 href="/marketplace"
-                className="block px-4 py-3 bg-gray-800 rounded-lg text-white"
+                className="block px-4 py-3 bg-gray-800 rounded-lg text-white hover:bg-gray-700 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Marketplace
               </Link>
               <Link
                 href="/creators"
-                className="block px-4 py-3 bg-gray-800 rounded-lg text-white"
+                className="block px-4 py-3 bg-gray-800 rounded-lg text-white hover:bg-gray-700 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 For Creators
               </Link>
               <Link
                 href="/about"
-                className="block px-4 py-3 bg-gray-800 rounded-lg text-white"
+                className="block px-4 py-3 bg-gray-800 rounded-lg text-white hover:bg-gray-700 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 About
               </Link>
               <Link
                 href="/get-started"
-                className="block px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg text-white text-center font-medium"
+                className="block px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg text-white text-center font-medium hover:shadow-lg transition-all"
                 onClick={() => setIsOpen(false)}
               >
                 Get Started
